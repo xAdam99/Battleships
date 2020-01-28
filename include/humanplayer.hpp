@@ -1,7 +1,11 @@
 #pragma once
 
-#include "initstate.hpp"
+#include <string>
+#include <vector>
+
 #include "player.hpp"
+#include "field.hpp"
+#include "initstate.hpp"
 
 
 class HumanPlayer : public Player {

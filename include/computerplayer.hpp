@@ -1,11 +1,12 @@
 #pragma once
 
+#include <vector>
+
 #include "player.hpp"
 
 
 class ComputerPlayer : public Player {
     std::vector<unsigned> ships;
-    int last_hit;
 
 public:
     explicit ComputerPlayer(Field &yourfield, std::vector<unsigned> shipz)

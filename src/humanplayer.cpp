@@ -1,4 +1,5 @@
 #include "humanplayer.hpp"
+#include "field.hpp"
 
 
 int HumanPlayer::make_move(float x, float y, Field &which_to_shoot) {
@@ -30,7 +31,6 @@ bool HumanPlayer::init(float x, float y) {
         auto bounds = my.at(i).rekt.getGlobalBounds();
         bool isInside = bounds.contains(x, y);
         if (isInside && (my.at(i).st == State::empty)) {
-            // my.at(i).setSt(State::ship);
             int x = i % 10;
             int y = i / 10;
             initState.setShip(x, y);

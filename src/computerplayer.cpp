@@ -1,9 +1,9 @@
 #include "computerplayer.hpp"
+#include "field.hpp"
 #include "utils.hpp"
 
 
 int ComputerPlayer::make_move(float x, float y, Field &which_to_shoot) {
-
     while (true) {
         int shoot = random(0, 99);
         if (which_to_shoot.at(shoot).st == State::empty) {
@@ -22,6 +22,7 @@ int ComputerPlayer::make_move(float x, float y, Field &which_to_shoot) {
 }
 
 bool ComputerPlayer::init(float x, float y) {
+    // TODO
     if (ships.size() <= 5) {
         int ships_structure = random(0, 7);
         switch (ships_structure) {

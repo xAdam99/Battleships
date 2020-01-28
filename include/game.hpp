@@ -1,11 +1,9 @@
 #pragma once
 
+#include <vector>
 #include <SFML/Graphics.hpp>
-#include <iostream>
-#include <memory>
 
 #include "computerplayer.hpp"
-#include "field.hpp"
 #include "humanplayer.hpp"
 #include "player.hpp"
 
@@ -42,7 +40,7 @@ class Game {
     sf::Text mode_question;
     sf::Text ispvp_text;
     sf::Text ispvc_text;
-    std::vector<unsigned> ships = {4, 3, 2, 2, 1}; //powyzej 5 statkow jedno ulozenie dla komputera
+    std::vector<unsigned> ships = {4, 3, 2, 2, 1};
 
 public:
     Game() : state(GameState::start) {
@@ -91,6 +89,4 @@ public:
     }
 
     void start_game();
-
-    void init();
 };

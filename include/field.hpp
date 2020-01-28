@@ -1,9 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <stdexcept>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 
 enum class State {

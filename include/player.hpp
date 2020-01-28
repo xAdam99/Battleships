@@ -1,8 +1,8 @@
 #pragma once
 
+#include <string>
+
 #include "field.hpp"
-#include <iostream>
-#include <vector>
 
 
 class Player {

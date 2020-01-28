@@ -1,4 +1,6 @@
-#include <iostream>
+#include <stdexcept>
+#include <SFML/Graphics.hpp>
+
 #include "field.hpp"
 
 

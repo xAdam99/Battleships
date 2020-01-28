@@ -1,5 +1,6 @@
-#include "game.hpp"
 #include <SFML/Graphics.hpp>
+
+#include "game.hpp"
 
 
 std::string stateToStr(GameState gs) {
@@ -31,7 +32,7 @@ std::string stateToStr(GameState gs) {
         default:
             return "unknown state";
     }
-};
+}
 
 void Game::start_game() {
     window.setFramerateLimit(30);
@@ -68,8 +69,7 @@ void Game::start_game() {
                                 if (pvp) {
                                     text.setString(
                                             p2->getName() +
-                                            ", YOUR TURN \n CLICK IF READY"); // TODO computerplayer -
-                                    // inny kompunikat
+                                            ", YOUR TURN \n CLICK IF READY");
                                 } else {
                                     text.setString(p2->getName() + "'s TURN");
                                 }
