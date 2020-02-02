@@ -68,7 +68,7 @@ void Game::start_game() {
                                         text.setString(p2->getName() + " WON! \n CONGRATULATIONS");
                                     }
                                 } else {
-                                    f2.set_com("Your fields");
+                                    f2.set_com("Your field");
                                     p2->opponents.set_com("Pick the attack target!");
                                     state = GameState::p2turn;
                                 }
@@ -85,7 +85,7 @@ void Game::start_game() {
                         case GameState::change_to_p1:
                             state = GameState::p1turn;
                             text.setString(p1->getName() + "'s TURN");
-                            f1.set_com("Your fields");
+                            f1.set_com("Your field");
                             p1->opponents.set_com("Pick the attack target!");
                             break;
                         case GameState::p1turn: {
