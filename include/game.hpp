@@ -11,9 +11,9 @@
 enum class GameState {
     start,
     pick_mode,
-    initp1,
+    p1init,
     change_to_p2,
-    initp2,
+    p2init,
     change_to_p1,
     p1turn,
     p1result,
@@ -34,12 +34,12 @@ class Game {
     sf::Texture win_image;
     sf::Sprite win_sprite;
     mutable sf::Text text;
-    bool pvp;
-    sf::RectangleShape ispvp;
-    sf::RectangleShape ispvc;
+    bool pvp{};
+    sf::RectangleShape is_pvp;
+    sf::RectangleShape is_pvc;
     sf::Text mode_question;
-    sf::Text ispvp_text;
-    sf::Text ispvc_text;
+    sf::Text is_pvp_text;
+    sf::Text is_pvc_text;
     std::vector<unsigned> ships = {4, 3, 2, 2, 1};
 
 public:
@@ -62,25 +62,25 @@ public:
         mode_question.setPosition(185, 175);
         mode_question.setString("Pick the game mode!");
 
-        ispvp_text.setFont(font);
-        ispvp_text.setCharacterSize(50);
-        ispvp_text.setFillColor(sf::Color::White);
-        ispvp_text.setPosition(300, 350);
-        ispvp_text.setString("PvP");
+        is_pvp_text.setFont(font);
+        is_pvp_text.setCharacterSize(50);
+        is_pvp_text.setFillColor(sf::Color::White);
+        is_pvp_text.setPosition(300, 350);
+        is_pvp_text.setString("PvP");
 
-        ispvp.setSize(sf::Vector2<float>(80, 50));
-        ispvp.setPosition(300, 350);
-        ispvp.setFillColor(sf::Color::Red);
+        is_pvp.setSize(sf::Vector2<float>(80, 50));
+        is_pvp.setPosition(300, 350);
+        is_pvp.setFillColor(sf::Color::Red);
 
-        ispvc_text.setFont(font);
-        ispvc_text.setCharacterSize(50);
-        ispvc_text.setFillColor(sf::Color::White);
-        ispvc_text.setPosition(905, 350);
-        ispvc_text.setString("PvC");
+        is_pvc_text.setFont(font);
+        is_pvc_text.setCharacterSize(50);
+        is_pvc_text.setFillColor(sf::Color::White);
+        is_pvc_text.setPosition(905, 350);
+        is_pvc_text.setString("PvC");
 
-        ispvc.setSize(sf::Vector2<float>(80, 50));
-        ispvc.setPosition(905, 350);
-        ispvc.setFillColor(sf::Color::Red);
+        is_pvc.setSize(sf::Vector2<float>(80, 50));
+        is_pvc.setPosition(905, 350);
+        is_pvc.setFillColor(sf::Color::Red);
 
         if (!win_image.loadFromFile("./images/win.png")) {
             throw std::runtime_error("cannot load win.png");

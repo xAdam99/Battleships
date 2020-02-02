@@ -9,11 +9,11 @@
 
 
 class HumanPlayer : public Player {
-    InitState initState;
+    InitState init_state;
 
 public:
-    HumanPlayer(std::string n, Field &yourfield, std::vector<unsigned> shipz)
-            : Player(n, yourfield), initState(yourfield, shipz) {}
+    HumanPlayer(std::string n, Field &your_field, const std::vector<unsigned> &ships)
+            : Player(std::move(n), your_field), init_state(your_field, ships) {}
 
     int make_move(float x, float y, Field &) override;
 

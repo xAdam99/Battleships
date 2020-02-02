@@ -27,70 +27,70 @@ bool ComputerPlayer::init(float x, float y) {
         int ships_structure = random(0, 7);
         switch (ships_structure) {
             case 0:
-                for (int i = 0; i < ships.size(); i += 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = 0; i < ships.size(); ++i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(j, i * 2).setSt(State::ship);
                     }
                 }
                 break;
             case 1:
-                for (int i = ships.size() - 1; i >= 0; i -= 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = ships.size() - 1; i >= 0; --i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(j, i * 2).setSt(State::ship);
                     }
                 }
                 break;
             case 2:
-                for (int i = 0; i < ships.size(); i += 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = 0; i < ships.size(); ++i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(j, 9 - i * 2).setSt(State::ship);
                     }
                 }
                 break;
             case 3:
-                for (int i = ships.size() - 1; i >= 0; i -= 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = ships.size() - 1; i >= 0; --i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(j, 9 - i * 2).setSt(State::ship);
                     }
                 }
                 break;
             case 4:
-                for (int i = 0; i < ships.size(); i += 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = 0; i < ships.size(); ++i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(i * 2, j).setSt(State::ship);
                     }
                 }
                 break;
             case 5:
-                for (int i = ships.size() - 1; i >= 0; i -= 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = ships.size() - 1; i >= 0; --i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(i * 2, j).setSt(State::ship);
                     }
                 }
                 break;
             case 6:
-                for (int i = 0; i < ships.size(); i += 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = 0; i < ships.size(); ++i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(9 - i * 2, j).setSt(State::ship);
                     }
                 }
                 break;
             case 7:
-                for (int i = ships.size() - 1; i >= 0; i -= 1) {
-                    for (int j = 0; j < ships[i]; j++) {
+                for (int i = ships.size() - 1; i >= 0; --i) {
+                    for (int j = 0; j < ships[i]; ++j) {
                         my.at(9 - i * 2, j).setSt(State::ship);
                     }
                 }
                 break;
         }
     } else {
-        for (int i = 0; i < 5; i += 1) {
-            for (int j = 0; j < ships[i]; j++) {
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < ships[i]; ++j) {
                 my.at(j, i * 2).setSt(State::ship);
             }
         }
-        for (int i = 0; i < ships.size() - 5; i += 1) {
-            for (int j = 9; j > 9 - ships[i]; j--) {
+        for (int i = 0; i < ships.size() - 5; ++i) {
+            for (int j = 9; j > 9 - ships[i]; --j) {
                 my.at(j, i * 2).setSt(State::ship);
             }
         }

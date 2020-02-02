@@ -3,43 +3,14 @@
 #include "game.hpp"
 
 
-std::string stateToStr(GameState gs) {
-    switch (gs) {
-        case GameState::start:
-            return "start";
-        case GameState::initp1:
-            return "initp1";
-        case GameState::change_to_p2:
-            return "change_to_p2";
-        case GameState::initp2:
-            return "initp2";
-        case GameState::change_to_p1:
-            return "change_to_p1";
-        case GameState::p1turn:
-            return "p1turn";
-        case GameState::p1result:
-            return "p1result";
-        case GameState::p2turn:
-            return "p2turn";
-        case GameState::p2result:
-            return "p2result";
-        case GameState::p1win:
-            return "p1win";
-        case GameState::p2win:
-            return "p2win";
-        case GameState::pick_mode:
-            return "pick_mode";
-        default:
-            return "unknown state";
-    }
-}
+std::string stateToStr(GameState gs);
 
 void Game::start_game() {
     window.setFramerateLimit(30);
-    bool initp2 = true;
+    bool p2init = true;
     while (window.isOpen()) {
 
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::Closed:
@@ -52,18 +23,18 @@ void Game::start_game() {
                             break;
                         case GameState::pick_mode:
                             text.setString(p1->getName() + "'s TURN");
-                            if (ispvp.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
-                                state = GameState::initp1;
+                            if (is_pvp.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+                                state = GameState::p1init;
                                 pvp = true;
                                 p2 = new HumanPlayer("Player2", f2, ships);
                             }
-                            if (ispvc.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
-                                state = GameState::initp1;
+                            if (is_pvc.getGlobalBounds().contains(event.mouseButton.x, event.mouseButton.y)) {
+                                state = GameState::p1init;
                                 pvp = false;
                                 p2 = new ComputerPlayer(f2, ships);
                             }
                             break;
-                        case GameState::initp1:
+                        case GameState::p1init:
                             if (p1->init(event.mouseButton.x, event.mouseButton.y)) {
                                 state = GameState::change_to_p2;
                                 if (pvp) {
@@ -76,11 +47,11 @@ void Game::start_game() {
                             }
                             break;
                         case GameState::change_to_p2:
-                            if (initp2) {
-                                initp2 = false;
+                            if (p2init) {
+                                p2init = false;
                                 if (pvp) {
                                     text.setString(p2->getName() + "'s TURN");
-                                    state = GameState::initp2;
+                                    state = GameState::p2init;
                                 } else {
                                     p2->init(1.0, 2.0);
                                     state = GameState::change_to_p1;
@@ -94,16 +65,16 @@ void Game::start_game() {
                                     text.setString(p1->getName() + ", YOUR TURN \n CLICK IF READY");
                                     if (f1.is_game_end()) {
                                         state = GameState::p2win;
-                                        text.setString(p2->getName() + " WON! \n CONTRATULATIONS");
+                                        text.setString(p2->getName() + " WON! \n CONGRATULATIONS");
                                     }
                                 } else {
-                                    f2.set_com("Your field");
+                                    f2.set_com("Your fields");
                                     p2->opponents.set_com("Pick the attack target!");
                                     state = GameState::p2turn;
                                 }
                             }
                             break;
-                        case GameState::initp2:
+                        case GameState::p2init:
                             if (p2->init(event.mouseButton.x, event.mouseButton.y)) {
                                 state = GameState::change_to_p1;
                                 if (pvp) {
@@ -114,7 +85,7 @@ void Game::start_game() {
                         case GameState::change_to_p1:
                             state = GameState::p1turn;
                             text.setString(p1->getName() + "'s TURN");
-                            f1.set_com("Your field");
+                            f1.set_com("Your fields");
                             p1->opponents.set_com("Pick the attack target!");
                             break;
                         case GameState::p1turn: {
@@ -124,9 +95,9 @@ void Game::start_game() {
                                 if (f2.is_ship_destroyed(hit % 10, hit / 10)) {
                                     p1->opponents.set_com("SHIP DESTROYED!");
                                 }
-                                if (f2.is_game_end() && !initp2) {
+                                if (f2.is_game_end() && !p2init) {
                                     state = GameState::p1win;
-                                    text.setString(p1->getName() + " WON! \n CONTRATULATIONS");
+                                    text.setString(p1->getName() + " WON! \n CONGRATULATIONS");
                                 }
                             }
                         }
@@ -149,7 +120,7 @@ void Game::start_game() {
                                 }
                                 if (f1.is_game_end()) {
                                     state = GameState::p2win;
-                                    text.setString(p2->getName() + " WON! \n CONTRATULATIONS");
+                                    text.setString(p2->getName() + " WON! \n CONGRATULATIONS");
                                 }
                             }
                             break;
@@ -171,6 +142,8 @@ void Game::start_game() {
                             break;
                     }
                     break;
+                default:
+                    break;
             }
         }
 
@@ -181,19 +154,19 @@ void Game::start_game() {
                 break;
             case GameState::pick_mode:
                 window.draw(mode_question);
-                window.draw(ispvp);
-                window.draw(ispvc);
-                window.draw(ispvp_text);
-                window.draw(ispvc_text);
+                window.draw(is_pvp);
+                window.draw(is_pvc);
+                window.draw(is_pvp_text);
+                window.draw(is_pvc_text);
                 break;
-            case GameState::initp1:
+            case GameState::p1init:
                 window.draw(f1);
                 window.draw(text);
                 break;
             case GameState::change_to_p2:
                 window.draw(text);
                 break;
-            case GameState::initp2:
+            case GameState::p2init:
                 if (pvp) {
                     window.draw(f2);
                 }
@@ -237,5 +210,36 @@ void Game::start_game() {
         }
 
         window.display();
+    }
+}
+
+std::string stateToStr(GameState gs) {
+    switch (gs) {
+        case GameState::start:
+            return "start";
+        case GameState::p1init:
+            return "p1init";
+        case GameState::change_to_p2:
+            return "change_to_p2";
+        case GameState::p2init:
+            return "p2init";
+        case GameState::change_to_p1:
+            return "change_to_p1";
+        case GameState::p1turn:
+            return "p1turn";
+        case GameState::p1result:
+            return "p1result";
+        case GameState::p2turn:
+            return "p2turn";
+        case GameState::p2result:
+            return "p2result";
+        case GameState::p1win:
+            return "p1win";
+        case GameState::p2win:
+            return "p2win";
+        case GameState::pick_mode:
+            return "pick_mode";
+        default:
+            return "unknown state";
     }
 }

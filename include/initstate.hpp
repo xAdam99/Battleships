@@ -10,8 +10,8 @@ enum class InitPhase {
 };
 
 class InitState {
-    std::vector<unsigned> shipLengths;
-    unsigned currentShip{0};
+    const std::vector<unsigned> &ship_lengths;
+    unsigned current_ship{0};
     InitPhase phase = InitPhase::FIRST_PART;
     Field &field;
     int lastX{-1};
@@ -20,13 +20,13 @@ class InitState {
     void updateText() {
         std::string com = "Pick ";
         com += phase == InitPhase::FIRST_PART ? "the beginning" : "the end";
-        com += " of the ship of length " + std::to_string(shipLengths[currentShip]);
+        com += " of the ship of length " + std::to_string(ship_lengths[current_ship]);
         field.set_com(com);
     }
 
     void updateReadyState() {
-        currentShip++;
-        if (currentShip >= shipLengths.size()) {
+        current_ship++;
+        if (current_ship >= ship_lengths.size()) {
             phase = InitPhase::READY;
         }
     }
@@ -34,8 +34,8 @@ class InitState {
     bool checkBetween(int x1, int y1, int x2, int y2);
 
 public:
-    explicit InitState(Field &f, std::vector<unsigned> ships = {4, 1})
-            : field(f), shipLengths(std::move(ships)) {
+    explicit InitState(Field &f, const std::vector<unsigned> &ships)
+            : field(f), ship_lengths(ships) {
         updateText();
     }
 

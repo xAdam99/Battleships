@@ -14,32 +14,31 @@ class Rec {
     State _st;
 
 public:
-    sf::RectangleShape rekt;
+    sf::RectangleShape rectangle;
     const State &st = _st;
 
-    Rec() : _st(State::empty), rekt(sf::Vector2f(50, 50)) {}
+    Rec() : _st(State::empty), rectangle(sf::Vector2f(50, 50)) {}
 
     void setSt(State newSt) {
         _st = newSt;
         switch (_st) {
             case State::empty:
-                rekt.setFillColor(sf::Color::White);
+                rectangle.setFillColor(sf::Color::White);
                 break;
             case State::ship:
-                rekt.setFillColor(sf::Color(100, 100, 100));
+                rectangle.setFillColor(sf::Color(100, 100, 100));
                 break;
             case State::destroyed:
-                rekt.setFillColor(sf::Color::Green);
+                rectangle.setFillColor(sf::Color::Green);
                 break;
             case State::missed:
-                rekt.setFillColor(sf::Color::Red);
+                rectangle.setFillColor(sf::Color::Red);
         }
     }
 };
 
 class Field : public sf::Drawable {
     std::vector<Rec> fields{100};
-    std::string com;
     sf::Font font;
     mutable sf::Text text;
 
@@ -48,8 +47,6 @@ protected:
 
 public:
     explicit Field(float p = 0);
-
-    Field(const Field &f);
 
     Rec &at(unsigned int a) { return fields[a]; }
 
@@ -60,7 +57,7 @@ public:
         return fields[y * 10 + x];
     }
 
-    void set_com(std::string communicate);
+    void set_com(const std::string &communicate);
 
     bool is_game_end() const;
 

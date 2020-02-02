@@ -6,11 +6,11 @@
 
 
 class ComputerPlayer : public Player {
-    std::vector<unsigned> ships;
+    const std::vector<unsigned> &ships;
 
 public:
-    explicit ComputerPlayer(Field &yourfield, std::vector<unsigned> shipz)
-            : Player("Computer", yourfield), ships(shipz) {}
+    explicit ComputerPlayer(Field &your_field, const std::vector<unsigned> &ships)
+            : Player("Computer", your_field), ships(ships) {}
 
     int make_move(float x, float y, Field &) override;
 

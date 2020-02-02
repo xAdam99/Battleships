@@ -7,7 +7,7 @@ bool InitState::checkBetween(int x1, int y1, int x2, int y2) {
     }
 
     if (int dist = std::abs(x1 - x2) + std::abs(y1 - y2) + 1;
-            dist != shipLengths[currentShip]) {
+            dist != ship_lengths[current_ship]) {
         return false;
     }
 
@@ -15,7 +15,7 @@ bool InitState::checkBetween(int x1, int y1, int x2, int y2) {
         int x = x1;
         int a = std::min(y1, y2);
         int b = std::max(y1, y2);
-        for (int y = a + 1; y < b; y++) {
+        for (int y = a + 1; y < b; ++y) {
             if (x != 0 && field.at(x - 1, y).st == State::ship) {
                 return false;
             }
@@ -30,7 +30,7 @@ bool InitState::checkBetween(int x1, int y1, int x2, int y2) {
         int y = y1;
         int a = std::min(x1, x2);
         int b = std::max(x1, x2);
-        for (int x = a + 1; x < b; x++) {
+        for (int x = a + 1; x < b; ++x) {
             if (y != 0 && field.at(x, y - 1).st == State::ship) {
                 return false;
             }
@@ -65,7 +65,7 @@ void InitState::setShip(int x, int y) {
         return;
     }
     if (phase == InitPhase::FIRST_PART) {
-        if (shipLengths[currentShip] == 1) {
+        if (ship_lengths[current_ship] == 1) {
             field.at(x, y).setSt(State::ship);
             updateReadyState();
             updateText();
@@ -74,7 +74,7 @@ void InitState::setShip(int x, int y) {
         lastX = x;
         lastY = y;
         phase = InitPhase::LAST_PART;
-        field.at(x, y).rekt.setFillColor(sf::Color::Magenta);
+        field.at(x, y).rectangle.setFillColor(sf::Color::Magenta);
         updateText();
     } else {
         if (!checkBetween(x, y, lastX, lastY)) {
@@ -85,8 +85,8 @@ void InitState::setShip(int x, int y) {
         int max_x = std::max(x, lastX);
         int min_y = std::min(y, lastY);
         int max_y = std::max(y, lastY);
-        for (int a = min_x; a <= max_x; a++) {
-            for (int b = min_y; b <= max_y; b++) {
+        for (int a = min_x; a <= max_x; ++a) {
+            for (int b = min_y; b <= max_y; ++b) {
                 field.at(a, b).setSt(State::ship);
             }
         }

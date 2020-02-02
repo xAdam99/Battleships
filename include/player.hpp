@@ -13,8 +13,8 @@ protected:
 public:
     Field opponents;
 
-    Player(std::string n, Field &yourfield)
-            : name(n), my(yourfield), opponents(700) {}
+    Player(std::string n, Field &your_field)
+            : name(std::move(n)), my(your_field), opponents(700) {}
 
     std::string getName() { return name; }
 

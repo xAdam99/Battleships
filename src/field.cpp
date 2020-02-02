@@ -4,19 +4,10 @@
 #include "field.hpp"
 
 
-Field::Field(const Field &f) {
-    for (int i = 0; i < fields.size(); i++) {
-        fields[i].rekt = f.fields[i].rekt;
-    }
-    font = f.font;
-    text = f.text;
-    com = f.com;
-}
-
 Field::Field(float p) {
-    for (int i = 0; i < fields.size(); i++) {
-        fields[i].rekt.setPosition((i % 10) * 51 + p, i / 10 * 51);
-        fields[i].rekt.setFillColor(sf::Color(sf::Color::White));
+    for (int i = 0; i < fields.size(); ++i) {
+        fields[i].rectangle.setPosition(i % 10 * 51 + p, i / 10 * 51);
+        fields[i].rectangle.setFillColor(sf::Color(sf::Color::White));
     }
     if (!font.loadFromFile("./fonts/lunchds.ttf")) {
         throw std::runtime_error("cannot load font");
@@ -30,19 +21,19 @@ Field::Field(float p) {
 
 void Field::draw(sf::RenderTarget &target, sf::RenderStates states) const {
     for (const auto &field : fields) {
-        target.draw(field.rekt);
+        target.draw(field.rectangle);
     }
     target.draw(text);
 }
 
-void Field::set_com(std::string communicate) {
-    if (communicate != "") {
+void Field::set_com(const std::string &communicate) {
+    if (!communicate.empty()) {
         text.setString(communicate);
     }
 }
 
 bool Field::operator==(const Field &f) {
-    for (int i = 0; i < fields.size(); i++) {
+    for (int i = 0; i < fields.size(); ++i) {
         if (fields[i].st != f.fields[i].st) {
             return false;
         }
@@ -51,8 +42,8 @@ bool Field::operator==(const Field &f) {
 }
 
 bool Field::is_game_end() const {
-    for (int i = 0; i < fields.size(); i++) {
-        if (fields[i].st == State::ship) {
+    for (const auto &field : fields) {
+        if (field.st == State::ship) {
             return false;
         }
     }
