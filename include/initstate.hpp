@@ -10,7 +10,7 @@ enum class InitPhase {
 };
 
 class InitState {
-    const std::vector<unsigned> &ship_lengths;
+    const std::vector<unsigned int> &ship_lengths;
     unsigned current_ship{0};
     InitPhase phase = InitPhase::FIRST_PART;
     Field &field;
@@ -34,7 +34,7 @@ class InitState {
     bool checkBetween(int x1, int y1, int x2, int y2);
 
 public:
-    explicit InitState(Field &f, const std::vector<unsigned> &ships)
+    explicit InitState(Field &f, const std::vector<unsigned int> &ships)
             : field(f), ship_lengths(ships) {
         updateText();
     }
